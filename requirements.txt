@@ -1,0 +1,72 @@
+-------------------------------------------------------------------------
+JOB SEEKERS
+    User_Schema,
+            Name,
+            Userid,
+            profile_picture,
+            email,
+            college_name,
+            college_id,
+            mobile_number,
+            resumae,
+            experience,
+            skills,[]
+            projects,[]
+            courses,[]
+            auth_code,{exp:10 min}
+
+    Projects_Schema,
+        Userid,
+        project_title,
+        project_description,
+        features,
+        output,
+    Courses_Schema,
+        title,
+        certificate_img,
+        certificate_descprition,
+        certificate_link,
+    Application_Schema,
+        Userid,
+        job_id,
+        status,
+        
+---------------------------------------------------------------------------
+Recruiters
+    Recruiters_Schema,
+        Userid,
+        profile_picture,
+        Name,
+        email,
+        designation,
+        company_id
+    Company_Schema,
+        company_id,
+        company_name,
+        company_description,
+        company_size,
+        company_location,
+        company_images
+    Job_posting,
+        job_id,
+        status,
+        job-title,
+        job-description,
+        salary,
+        experience,
+        skills,
+        roles,
+        responsibilities,
+-----------------------------------------------------------------------------
+College_Schema
+    name,
+    username,
+    email,
+    location,
+    pin_code,
+    stream,
+    website,
+    college_code,
+    contact_number,
+
+            

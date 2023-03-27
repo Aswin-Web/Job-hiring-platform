@@ -1,16 +1,53 @@
 require("dotenv").config();
 const express = require("express");
+const passport=require('passport')
+const cookieParser = require("cookie-parser");
+// Utils
 const connectDB = require("./utils/connectDB");
 
+//Passport
+
+// Routes Import
+const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.routes");
+const googleAuthRoutes=require('./routes/googleauth.routes') 
+
+const cors =require('cors')
 const app = express();
+
+// Cookie-Parser
 
 // MongoDB Connection String
 connectDB();
 
+
+app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
+
+
+
+
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("hello");
+// Authentication Routes
+// app.use("/auth", authRoutes);
+
+// Google SignUp 
+app.use('/auth/google',googleAuthRoutes)
+
+
+// User Routes
+app.use("/user", userRoutes);
+
+app.use((req, res) => {
+  res.status(500).json({ msg: "Something went wrong" });
 });
 
 module.exports = app;
