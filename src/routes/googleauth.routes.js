@@ -64,11 +64,9 @@ router.get(
           displayPicture: photo,
         });
         const token = await generateToken(savedUser._id);
-        res.setHeader(
-          "Access-Control-Allow-Origin",
-          "https://careersheets.netlify.app/"
-        );
-        res.cookie("email", token);
+        
+        res.cookie("email", token,{ httpOnly: false, secure: true,sameSite:'None' });
+        
 
         return res.redirect(process.env.REDIRECT_URL);
       }
