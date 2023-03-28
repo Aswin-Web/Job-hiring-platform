@@ -64,6 +64,7 @@ router.get(
           displayPicture: photo,
         });
         const token = await generateToken(savedUser._id);
+        res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL);
         res.cookie("email", token);
 
         return res.redirect(process.env.REDIRECT_URL);
