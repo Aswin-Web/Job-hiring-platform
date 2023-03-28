@@ -65,7 +65,7 @@ router.get(
         });
         const token = await generateToken(savedUser._id);
         
-        res.cookie("email", token,{ httpOnly: false, secure: true,sameSite:'None' });
+        res.cookie("email", token,{ httpOnly: false, secure: true,sameSite:'none' });
         
 
         return res.redirect(process.env.REDIRECT_URL);
