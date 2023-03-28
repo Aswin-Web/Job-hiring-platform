@@ -22,17 +22,12 @@ passport.use(
     {
       clientID: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
-      callbackURL: "http://localhost:5001/auth/google/cb",
-      
+      callbackURL: `${CALLBACK_URL}/auth/google/cb`,
+
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      console.log(profile.email)
-      
-
-
-      
-
+      console.log(profile.email);
 
       return done(null, profile);
     }
