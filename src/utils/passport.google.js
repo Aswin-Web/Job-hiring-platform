@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
-      callbackURL: `${CALLBACK_URL}/auth/google/cb`,
+      callbackURL: `${process.env.CALLBACK_URL}/auth/google/cb`,
 
       passReqToCallback: true,
     },
