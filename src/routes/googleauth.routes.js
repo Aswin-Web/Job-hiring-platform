@@ -64,7 +64,8 @@ router.get(
           displayPicture: photo,
         });
         const token = await generateToken(savedUser._id);
-        
+        res.setHeader("Access-Control-Allow-Credentials", true);
+
         res.cookie("email", token, {
           httpOnly: false,
           secure: true,
