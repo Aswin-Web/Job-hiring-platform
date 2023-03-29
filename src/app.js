@@ -41,7 +41,8 @@ app.use(
     cookie:{
       maxAge:1000*60*60,
       sameSite:'none',
-      secure:true
+      secure:true,
+      domain:"https://careersheets.netlify.app/authredirect"
     }
   })
 )
