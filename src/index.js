@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const app = require("./app");
 
-const http = require("https");
+const http = require("http");
 
 const PORT = process.env.PORT || 5001;
 
