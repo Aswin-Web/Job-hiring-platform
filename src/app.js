@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const passport=require('passport')
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 // Utils
 const connectDB = require("./utils/connectDB");
 
