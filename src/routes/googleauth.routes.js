@@ -47,6 +47,7 @@ Method        GET
 router.get(
   "/cb",
   passport.authenticate("google", {
+    successRedirect: process.env.REDIRECT_URL,
     failureRedirect: "/auth/google/failure",
   }),
   async function (req, res, next) {
@@ -72,7 +73,6 @@ router.get(
           sameSite: "none",
           domain: "https://careersheets.netlify.app/",
         });
-        
 
         return res.redirect(process.env.REDIRECT_URL);
       }
