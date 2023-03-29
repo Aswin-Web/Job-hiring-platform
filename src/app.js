@@ -22,51 +22,51 @@ const app = express();
 connectDB();
 
 
-// app.use(cookieParser());
+app.use(cookieParser());
 
-
-// app.use(
-//   cors({
-//     origin: 
-      
-//       "https://careersheets.netlify.app/"
-//     ,
-//     credentials:true
-    
-   
-//   })
-// );
-
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header("Access-Control-Allow-Origin", "https://careersheets.netlify.app");
-//   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "X-Requested-With,X-HTTP-Method-Override,Content-Type,Accept"
-//   );
-//   next()
-// });
-
-
-
-app.use(express.json());
-
-
-app.use(
-  cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(
   cors({
-    origin: "https://careersheets.netlify.app/",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true,
+    origin: 
+      
+      "https://careersheets.netlify.app/"
+    ,
+    credentials:true
+    
+   
   })
 );
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Origin", "https://careersheets.netlify.app");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,X-HTTP-Method-Override,Content-Type,Accept"
+  );
+  next()
+});
+
+
+
+// app.use(express.json());
+
+
+// app.use(
+//   cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+// );
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.use(
+//   cors({
+//     origin: "https://careersheets.netlify.app/",
+//     methods: "GET,POST,PUT,DELETE",
+//     credentials: true,
+//   })
+// );
 
 // Authentication Routes
 // app.use("/auth", authRoutes);

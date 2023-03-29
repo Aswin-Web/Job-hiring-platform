@@ -47,7 +47,7 @@ Method        GET
 router.get(
   "/cb",
   passport.authenticate("google", {
-    successRedirect: process.env.REDIRECT_URL,
+    
     failureRedirect: "/auth/google/failure",
   }),
   async function (req, res, next) {
@@ -74,14 +74,28 @@ router.get(
           domain: "https://careersheets.netlify.app/",
         });
 
-        return res.redirect(process.env.REDIRECT_URL);
+        return res
+          .cookie("email", token, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none",
+            domain: "https://careersheets.netlify.app/",
+          })
+          .redirect(process.env.REDIRECT_URL);
       }
 
       if (isUser.length !== 0) {
         // Checking wheather the user is partially logged in
         if (isUser[0].role === "none" || isUser[0].verification === false) {
           const token = await generateToken(isUser[0]._id);
-          res.cookie("email", token);
+          return res
+            .cookie("email", token, {
+              httpOnly: false,
+              secure: true,
+              sameSite: "none",
+              domain: "https://careersheets.netlify.app/",
+            })
+            .redirect(process.env.REDIRECT_URL);
 
           // res.clearCookie("user"  );
           // console.log(req.cookies);
@@ -92,13 +106,19 @@ router.get(
           //   verification: false,
           // });
 
-          return res.redirect(process.env.REDIRECT_URL);
+           
         } else {
           // Else You can Create an JWT token
           const token = await generateToken(isUser[0]._id);
 
-          res.cookie("email", token);
-          return res.redirect(process.env.REDIRECT_URL);
+          
+          return res.cookie("email", token, {
+              httpOnly: false,
+              secure: true,
+              sameSite: "none",
+              domain: "https://careersheets.netlify.app/",
+            })
+            .redirect(process.env.REDIRECT_URL);
         }
       }
     } catch (error) {
