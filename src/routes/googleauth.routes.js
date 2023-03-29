@@ -111,12 +111,12 @@ router.get(
           // Else You can Create an JWT token
           const token = await generateToken(isUser[0]._id);
 
-          
+          // 
           return res.cookie("email", token, {
               httpOnly: false,
               secure: true,
               sameSite: "none",
-              domain: "https://careersheets.netlify.app/",
+              
             })
             .redirect(process.env.REDIRECT_URL);
         }
