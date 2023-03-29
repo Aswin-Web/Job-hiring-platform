@@ -51,6 +51,7 @@ router.get(
     failureRedirect: "/auth/google/failure",
   }),
   async function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Credentials", true);
     try {
       const email = req.user.emails[0].value;
       const name = req.user.displayName;
@@ -65,22 +66,10 @@ router.get(
           displayPicture: photo,
         });
         const token = await generateToken(savedUser._id);
-        res.setHeader("Access-Control-Allow-Credentials", true);
 
-        res.cookie("email", token, {
-          httpOnly: false,
-          secure: true,
-          sameSite: "none",
-          domain: "https://careersheets.netlify.app/",
-        });
-
+       
         return res
-          .cookie("email", token, {
-            httpOnly: false,
-            secure: true,
-            sameSite: "none",
-            domain: "https://careersheets.netlify.app/",
-          })
+          .cookie("email", token)
           .redirect(process.env.REDIRECT_URL);
       }
 
@@ -89,12 +78,7 @@ router.get(
         if (isUser[0].role === "none" || isUser[0].verification === false) {
           const token = await generateToken(isUser[0]._id);
           return res
-            .cookie("email", token, {
-              httpOnly: false,
-              secure: true,
-              sameSite: "none",
-              domain: "https://careersheets.netlify.app/",
-            })
+            .cookie("email", token)
             .redirect(process.env.REDIRECT_URL);
 
           // res.clearCookie("user"  );
@@ -112,12 +96,7 @@ router.get(
           const token = await generateToken(isUser[0]._id);
 
           // 
-          return res.cookie("email", token, {
-              httpOnly: false,
-              secure: true,
-              sameSite: "none",
-              
-            })
+          return res.cookie("email", token)
             .redirect(process.env.REDIRECT_URL);
         }
       }
