@@ -65,7 +65,12 @@ router.get(
         });
         const token = await generateToken(savedUser._id);
         
-        res.cookie("email", token,{ httpOnly: false, secure: true,sameSite:'none' });
+        res.cookie("email", token, {
+          httpOnly: false,
+          secure: true,
+          sameSite: "none",
+          domain: "https://careersheets.netlify.app/",
+        });
         
 
         return res.redirect(process.env.REDIRECT_URL);
