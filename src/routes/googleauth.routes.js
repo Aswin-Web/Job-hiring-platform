@@ -70,7 +70,7 @@ router.get(
        
         return res
           .cookie("email", token)
-          .redirect(process.env.REDIRECT_URL);
+          .redirect(`${process.env.REDIRECT_URL}?token=${token}`);
       }
 
       if (isUser.length !== 0) {
@@ -79,7 +79,7 @@ router.get(
           const token = await generateToken(isUser[0]._id);
           return res
             .cookie("email", token)
-            .redirect(process.env.REDIRECT_URL);
+            .redirect(`${process.env.REDIRECT_URL}?token=${token}`);
 
           // res.clearCookie("user"  );
           // console.log(req.cookies);
@@ -96,8 +96,9 @@ router.get(
           const token = await generateToken(isUser[0]._id);
 
           // 
-          return res.cookie("email", token)
-            .redirect(process.env.REDIRECT_URL);
+          return res
+            .cookie("email", token)
+            .redirect(`${process.env.REDIRECT_URL}?token=${token}`);
         }
       }
     } catch (error) {
