@@ -166,9 +166,10 @@ Parameter     -
 Method        GET
 */
 
-router.get("/test", async (req, res, next) => {
+router.get("/test/:jwt_token", async (req, res, next) => {
   try {
-    const { email } = req.cookies;
+    const jwt_token=req.params.jwt_token
+    const  email  = jwt_token ;
     if (email) {
       const _id=await verifyToken(email)
       const user = await User.find({ _id: _id, auth: true });
