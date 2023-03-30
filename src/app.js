@@ -63,5 +63,5 @@ app.use("/user", userRoutes);
 app.use((req, res) => {
   res.status(500).json({ msg: "Something went wrong" });
 });
-
+// 
 module.exports = app;
