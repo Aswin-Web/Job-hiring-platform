@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://careersheets.netlify.app/",
+    origin: ["https://careersheets.netlify.app","http://localhost:3000"],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
