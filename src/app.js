@@ -4,6 +4,9 @@ const passport=require('passport')
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const session=require('express-session')
+// Authorisation Header Check
+const {authenticateUser} =require('./utils/authorisation.header.check')
+
 // Utils
 const connectDB = require("./utils/connectDB");
 
@@ -24,8 +27,6 @@ connectDB();
 
 app.use(express.json());
 
-
-app.use(express.json());
 app.use(cookieParser());
 
 app.use(
@@ -57,6 +58,8 @@ app.use((req, res, next) => {
 // Google SignUp 
 app.use('/auth/google',googleAuthRoutes)
 
+// Authorisation Controller
+app.use(authenticateUser);
 
 // User Routes
 app.use("/user", userRoutes);
