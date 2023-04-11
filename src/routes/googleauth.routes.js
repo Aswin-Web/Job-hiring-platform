@@ -6,20 +6,28 @@ require("../utils/passport.google");
 
 // MODEL - MongoDB
 const User = require("../models/user.models");
+const LoginHistory = require("../models/login.history.model");
 
 const express = require("express");
 const passport = require("passport");
 
 const router = express.Router();
 
-
 const jwt = require("jsonwebtoken");
 
-async function generateJWT(_id,email,name,role,verification,displayPicture) {
-  return await jwt.sign({ _id,email,name,role,verification,displayPicture  }, process.env.JWT_KEY);
+async function generateJWT(
+  _id,
+  email,
+  name,
+  role,
+  verification,
+  displayPicture
+) {
+  return await jwt.sign(
+    { _id, email, name, role, verification, displayPicture },
+    process.env.JWT_KEY
+  );
 }
-
-
 
 /*
 Route         /auth/google
@@ -47,11 +55,10 @@ Method        GET
 router.get(
   "/cb",
   passport.authenticate("google", {
-    
     failureRedirect: "/auth/google/failure",
   }),
   async function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Credentials", true);
     try {
       const email = req.user.emails[0].value;
       const name = req.user.displayName;
@@ -65,9 +72,12 @@ router.get(
           name: name,
           displayPicture: photo,
         });
+        await LoginHistory.create({
+          user_id: savedUser._id,
+        });
+
         const token = await generateToken(savedUser._id);
 
-       
         return res
           .cookie("email", token)
           .redirect(`${process.env.REDIRECT_URL}?token=${token}`);
@@ -89,13 +99,14 @@ router.get(
           //   type: "none",
           //   verification: false,
           // });
-
-           
         } else {
           // Else You can Create an JWT token
+          const savelogin = await LoginHistory.create({
+            user_id: isUser[0]._id,
+          });
           const token = await generateToken(isUser[0]._id);
 
-          // 
+          //
           return res
             .cookie("email", token)
             .redirect(`${process.env.REDIRECT_URL}?token=${token}`);
@@ -118,7 +129,6 @@ Method        GET
 
 router.get("/success", (req, res) => {
   if (req.user) {
-   
     res.send({ user: req.user.displayname });
   }
 });
@@ -143,13 +153,15 @@ Parameter     -
 Method        POST
 */
 
-router.put("/verify",  authenticateUser,async (req, res, next) => {
+router.put("/verify", authenticateUser, async (req, res, next) => {
   try {
     const { type } = req.body;
-    
-   
-    const resp=await User.updateOne({_id:req.user._id},{role:type,verification:true},{new:true})
-    
+
+    const resp = await User.updateOne(
+      { _id: req.user._id },
+      { role: type, verification: true },
+      { new: true }
+    );
 
     res.send("success");
   } catch (error) {
@@ -168,10 +180,10 @@ Method        GET
 
 router.get("/test/:jwt_token", async (req, res, next) => {
   try {
-    const jwt_token=req.params.jwt_token
-    const  email  = jwt_token ;
+    const jwt_token = req.params.jwt_token;
+    const email = jwt_token;
     if (email) {
-      const _id=await verifyToken(email)
+      const _id = await verifyToken(email);
       const user = await User.find({ _id: _id, auth: true });
       if (user.length !== 0) {
         return res.status(200).json({
@@ -181,14 +193,13 @@ router.get("/test/:jwt_token", async (req, res, next) => {
           name: user[0].name,
           verification: user[0].verification,
           auth: true,
-          token:await generateJWT(
+          token: await generateJWT(
             user[0]._id,
             user[0].email,
             user[0].name,
             user[0].role,
             user[0].verification,
             user[0].displayPicture
-
           ),
         });
       } else {
@@ -197,8 +208,6 @@ router.get("/test/:jwt_token", async (req, res, next) => {
     } else {
       return res.status(401).json({ auth: false });
     }
-
-   
   } catch (error) {
     console.log(error);
     return next();

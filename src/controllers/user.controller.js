@@ -11,11 +11,11 @@ const postApplication = async (req, res, next) => {
     } = req.body;
     if (
       (company &&
-      designation &&
-      whereApply &&
-      joblink &&
-      applicationDate &&
-      location)!==''
+        designation &&
+        whereApply &&
+        joblink &&
+        applicationDate &&
+        location) !== ""
     ) {
       const save = await Application.create({
         author: req.user._id,
@@ -28,8 +28,10 @@ const postApplication = async (req, res, next) => {
       });
 
       return res.status(201).json(save);
-    }else{
-      return res.status(400).json({msg:'No sufficient data are transmitted'})
+    } else {
+      return res
+        .status(400)
+        .json({ msg: "No sufficient data are transmitted" });
     }
   } catch (error) {
     console.log(error);
@@ -51,15 +53,42 @@ const getAllApplications = async (req, res, next) => {
 
 const AddStatusToApplication = async (req, res, next) => {
   try {
-    const { round, interviewType, status, date, notes, postID, author } =
-      req.body;
-    if ((round && interviewType && status && date && notes && postID && author)!==''){
+    const {
+      round,
+      interviewType,
+      status,
+      date,
+      notes,
+      postID,
+      author,
+      interviewerName,
+      interviewMode,
+    } = req.body;
+    if (
+      (round &&
+        interviewType &&
+        status &&
+        date &&
+        notes &&
+        postID &&
+        author &&
+        interviewerName &&
+        interviewMode) !== ""
+    ) {
       if (req.user._id.toString() === author) {
         const updated = await Application.updateOne(
           { _id: postID, author: author },
           {
             $push: {
-              status: { round, interviewType, status, date, notes },
+              status: {
+                round,
+                interviewType,
+                status,
+                date,
+                notes,
+                interviewerName,
+                interviewMode,
+              },
             },
           },
           {
@@ -71,7 +100,6 @@ const AddStatusToApplication = async (req, res, next) => {
       }
     }
     return res.status(401).json({ msg: "unauthorized" });
-  
   } catch (error) {
     console.log(error);
     return next();
