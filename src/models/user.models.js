@@ -1,33 +1,45 @@
 const mongoose =require('mongoose')
 
-const Schema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
+const Schema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    email:{
-        type:String,
-        unique:true
+    email: {
+      type: String,
+      unique: true,
     },
-    phone:{
-        type:Number
+    phone: {
+      type: Number,
     },
-    role:{
-        type:String,
-        default:'none'
-        
+    role: {
+      type: String,
+      default: "none",
     },
-    displayPicture:{
-        type:String
+    displayPicture: {
+      type: String,
     },
-    verification:{
-        type:Boolean,
-        default:false
-    }
-},
-{
-    timestamps:true
-})
+    verification: {
+      type: Boolean,
+      default: false,
+    },
+    status: {
+      type: String,
+    },
+
+    education: [{ type: mongoose.Types.ObjectId, ref: "Education" }],
+    skill: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Skill",
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const User=mongoose.model('User',Schema)
 
