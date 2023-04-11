@@ -4,6 +4,8 @@ const passport=require('passport')
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const session=require('express-session')
+var morgan = require("morgan");
+
 // Authorisation Header Check
 const {authenticateUser} =require('./utils/authorisation.header.check')
 
@@ -28,6 +30,9 @@ connectDB();
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use(morgan("combined"));
+
 
 app.use(
   cors({
