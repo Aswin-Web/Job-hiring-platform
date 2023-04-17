@@ -34,6 +34,7 @@ const Schema = new mongoose.Schema(
         date: String,
         notes: String,
         interviewerName:String,
+        interviewerContact:String,
         interviewMode: String, 
       },
     ],

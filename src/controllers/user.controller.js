@@ -63,6 +63,7 @@ const AddStatusToApplication = async (req, res, next) => {
       author,
       interviewerName,
       interviewMode,
+      interviewerContact,
     } = req.body;
     if (
       (round &&
@@ -73,7 +74,8 @@ const AddStatusToApplication = async (req, res, next) => {
         postID &&
         author &&
         interviewerName &&
-        interviewMode) !== ""
+        interviewMode &&
+        interviewerContact) !== ""
     ) {
       if (req.user._id.toString() === author) {
         const updated = await Application.updateOne(
@@ -88,6 +90,7 @@ const AddStatusToApplication = async (req, res, next) => {
                 notes,
                 interviewerName,
                 interviewMode,
+                interviewerContact,
               },
             },
           },

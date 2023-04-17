@@ -18,6 +18,7 @@ const connectDB = require("./utils/connectDB");
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
 const googleAuthRoutes=require('./routes/googleauth.routes') 
+const CSVroutes = require('./routes/csv.routes')
 
 const cors =require('cors')
 const app = express();
@@ -55,7 +56,8 @@ app.use((req, res, next) => {
 
 
 
-
+// Create an CSV
+app.use('/csv',CSVroutes)
 
 // Authentication Routes
 // app.use("/auth", authRoutes);

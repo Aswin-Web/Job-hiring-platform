@@ -27,7 +27,7 @@ passport.use(
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      console.log(profile.email);
+
 
       return done(null, profile);
     }
