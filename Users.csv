@@ -1,0 +1,36 @@
+0,id,name,email,role,skill
+"{
+  _id: new ObjectId(""643d53c0b9aad6a8c7da6435""),
+  collegeName: 'Coimbatore Institute of Technology (CIT), Coimbatore',
+  degree: 'BE/B.Tech',
+  graduationYear: '2022',
+  registerNumber: '71376545646'
+}",643d52b4b9aad6a8c7da6421,Ashvin S,ashvinachu097@gmail.com,user,
+,643d4ea3b6b3b04a9549617b,Ashvin S,ashvinachu09117@gmail.com,user,
+,643d4e76b6b3b04a95496152,Amal Das,amaldas0812@gmail.com,none,
+,642bb35ced44a8bacbbeb780,Test Bench,testbench88@gmail.com,user,
+"{
+  _id: new ObjectId(""64365e74efe896b72b454c38""),
+  collegeName: 'Kumaraguru College of Technology, Coimbatore',
+  degree: 'MBA',
+  graduationYear: '2022',
+  registerNumber: '701230161101'
+}",64290372eaa1f1fe4381cb8a,I-BACUS TECH,ibacustech@gmail.com,user,"C++,Java,Javascript"
+,6428a40da44a1766ee1a5a1e,Srini Pala,palasrao@gmail.com,user,
+,64285731ad65bcd238883884,Ashrita Chavali,chavaliashrita@gmail.com,user,
+"{
+  _id: new ObjectId(""6436c57ed4a73af97da61205""),
+  collegeName: 'Coimbatore Institute of Technology (CIT), Coimbatore',
+  degree: 'BE/B.Tech',
+  graduationYear: '2020',
+  registerNumber: 'ABCD1'
+}",6426eb665e31abc59b5a2c42,Sreeram Kishore Chavali,cskishore@gmail.com,user,Python
+,6426ea855e31abc59b5a2c3b,Ashvin S,ashece9@gmail.com,user,
+,64268cf521076e0a0e76d660,dev s,ds1611148@gmail.com,collegeadmin,
+"{
+  _id: new ObjectId(""643548b7125b064466ad564c""),
+  collegeName: 'Hindusthan College of Engineering and Technology (HCET), Coimbatore',
+  degree: 'BE/B.Tech',
+  graduationYear: '2022',
+  registerNumber: '71376545646'
+}",64268b776e76b0adf799c0dc,Ashvin S,ashvinachu0972@gmail.com,user,"NodeJS,ReactJS,Javascript,HTML"

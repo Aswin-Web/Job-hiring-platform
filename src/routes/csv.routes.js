@@ -1,7 +1,11 @@
 const express=require('express');
 const router = express.Router()
-const {createCSVUsers}=require('../controllers/csv.controller')
+const {
+   createCSVLoginHistory,
+  createCSVUsers,
+} = require("../controllers/csv.controller");
 
-router.get("/create", createCSVUsers);
+router.get("/loginHistory", createCSVLoginHistory);
+router.get("/users", createCSVUsers);
 
 module.exports=router;
