@@ -4,8 +4,8 @@ async function connectDB() {
   await mongoose.set("strictQuery", true);
   await mongoose
     .connect(
-      `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@inventory.ce7ild2.mongodb.net/app?retryWrites=true&w=majority`
-    )
+      process.env.MONGO_URL
+      )
     .then(() => {
       console.log("MongoDB Connected SuccessFully");
     })

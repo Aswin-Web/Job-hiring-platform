@@ -19,6 +19,7 @@ const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
 const googleAuthRoutes=require('./routes/googleauth.routes') 
 const CSVroutes = require('./routes/csv.routes')
+const collegeAdminRouter=require("./routes/college.routes")
 
 const cors =require('cors')
 const app = express();
@@ -67,6 +68,9 @@ app.use('/auth/google',googleAuthRoutes)
 
 // Authorisation Controller
 app.use(authenticateUser);
+
+////collegeadmin routes////
+app.use("/collegeadmin",collegeAdminRouter)
 
 // User Routes
 app.use("/user", userRoutes);
