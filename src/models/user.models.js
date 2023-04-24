@@ -27,6 +27,8 @@ const Schema = new mongoose.Schema(
     status: {
       type: String,
     },
+    collegeName:{type:String},
+    contact:{type:String},
 
     education: [{ type: mongoose.Types.ObjectId, ref: "Education" }],
     skill: [
