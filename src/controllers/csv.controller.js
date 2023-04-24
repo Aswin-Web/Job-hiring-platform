@@ -1,7 +1,11 @@
 const fastcsv = require("fast-csv");
 const fs = require("fs");
+
+// Models
 const LoginHistory = require("../models/login.history.model");
 const User = require("../models/user.models");
+const Application = require("../models/application.models");
+
 const createCSVLoginHistory = async (req, res, next) => {
   try {
     const ws = fs.createWriteStream("LoginHistory.csv");
@@ -52,23 +56,21 @@ const createCSVUsers = async (req, res, next) => {
         select: "skill",
       });
 
-    
     const UserArray = await data.map((item) => {
       let arraySkill;
-      console.log(item.skill)
-      
-      if (item.skill !==0 && item.skill !== undefined){
-         arraySkill=item.skill.map(skill=>skill.skill)
-        
+      console.log(item.skill);
+
+      if (item.skill !== 0 && item.skill !== undefined) {
+        arraySkill = item.skill.map((skill) => skill.skill);
       }
-      
+
       return {
         id: item._id,
         name: item.name,
         email: item.email,
         role: item.role,
         ...item.education.toObject(),
-        skill:arraySkill,
+        skill: arraySkill,
       };
     });
 
@@ -86,6 +88,209 @@ const createCSVUsers = async (req, res, next) => {
   }
 };
 
+const createApplicationByUser = async (req, res, next) => {
+  try {
+    const ws = fs.createWriteStream("Applications.csv");
 
+    const data = await Application.aggregate([
+      { $match: {} },
+      { $group: { _id: { createdUser: "$author" }, application: { $sum: 1 } } },
 
-module.exports = { createCSVLoginHistory, createCSVUsers };
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id.createdUser",
+          foreignField: "_id",
+          as: "user_info",
+        },
+      },
+    ]);
+    const ApplicantArray = await data.map((item) => {
+      return {
+        email: item.user_info[0].email,
+        name: item.user_info[0].name,
+        TotalApplication: item.application,
+      };
+    });
+    fastcsv
+      .write(ApplicantArray, { headers: true })
+      .on("finish", function () {
+        console.log("Number of applicant and applicant are generated");
+      })
+      .pipe(ws);
+    console.log(data.length);
+    return res.send("User List");
+  } catch (error) {
+    console.log(error);
+    return next();
+  }
+};
+
+const RoundsOfApplication = async (req, res, next) => {
+  try {
+    const ws = fs.createWriteStream("ApplicationbyRound.csv");
+
+    const data = await Application.aggregate([
+      { $match: {} },
+      // { $group: { _id: { createdUser: "$author" }, application: { $sum: 1 },company:'$company' } },
+
+      {
+        $lookup: {
+          from: "users",
+          localField: "author",
+          foreignField: "_id",
+          as: "user_info",
+        },
+      },
+      {
+        $project: {
+          company: 1,
+          "user_info.name": 1,
+          "user_info.email": 1,
+          applicationStatus: { $slice: ["$status", -1] },
+        },
+      },
+    ]);
+
+    const ApplicationArray = await data.map((item) => {
+      if (
+        item.applicationStatus !== 0 &&
+        item.applicationStatus[0] !== undefined
+      ) {
+        return {
+          name: item.user_info[0].name,
+          email: item.user_info[0].email,
+          company: item.company,
+          round: item.applicationStatus[0].round,
+          status: item.applicationStatus[0].status,
+        };
+      }
+    });
+    console.log(ApplicationArray);
+    fastcsv
+      .write(ApplicationArray, { headers: true })
+      .on("finish", function () {
+        console.log("User List");
+      })
+      .pipe(ws);
+    console.log(data.length);
+    return res.send("User List");
+  } catch (error) {
+    console.log(error);
+    return next();
+  }
+};
+const CollegeUsers = async (req, res, next) => {
+  try {
+    const ws = fs.createWriteStream("CollegeUsers.csv");
+
+    const data = await User.find({role:'collegeadmin'})
+
+    console.log(data)
+      
+
+    const ApplicationArray = await data.map((item) => {
+      
+        return {
+          name: item.name,
+          email: item.email,
+          company: item.college,
+          verification: item.verification,
+        };
+      
+    });
+    console.log(ApplicationArray);
+    fastcsv
+      .write(ApplicationArray, { headers: true })
+      .on("finish", function () {
+        console.log("User List");
+      })
+      .pipe(ws);
+    console.log(data.length);
+    return res.send("User List");
+  } catch (error) {
+    console.log(error);
+    return next();
+  }
+};
+const UsersBySkill = async (req, res, next) => {
+  try {
+    const ws = fs.createWriteStream("CollegeUsers.csv");
+
+    const data = await User.find({ role: "collegeadmin" });
+
+    console.log(data);
+
+    const ApplicationArray = await data.map((item) => {
+      return {
+        name: item.name,
+        email: item.email,
+        company: item.college,
+        verification: item.verification,
+      };
+    });
+    console.log(ApplicationArray);
+    fastcsv
+      .write(ApplicationArray, { headers: true })
+      .on("finish", function () {
+        console.log("User List");
+      })
+      .pipe(ws);
+    console.log(data.length);
+    return res.send("User List");
+  } catch (error) {
+    console.log(error);
+    return next();
+  }
+};
+
+const UsersByCollegeDegreeGraduationYear = async (req, res, next) => {
+  try {
+    const ws = fs.createWriteStream("UsersByCollegeDegreeGraduationYear.csv");
+
+    const data = await User.find({ role: "user" })
+      .populate({
+        path: "education",
+        select: "collegeName graduated graduationYear registerNumber",
+      })
+      .populate({
+        path: "skill",
+        select: "skill",
+      })
+      .select("education skill name email");
+
+    // console.log(data);
+
+    const ApplicationArray = await data.map((item) => {
+      return {
+        name: item.name,
+        email: item.email,
+        ...item.education,
+        ...item.skill,
+        company: item.college,
+        verification: item.verification,
+      };
+    });
+    console.log(ApplicationArray);
+    fastcsv
+      .write(ApplicationArray, { headers: true })
+      .on("finish", function () {
+        console.log("User List");
+      })
+      .pipe(ws);
+    console.log(data.length);
+    return res.send("User List");
+  } catch (error) {
+    console.log(error);
+    return next();
+  }
+};
+module.exports = {
+  createCSVLoginHistory,
+  createCSVUsers,
+  createApplicationByUser,
+  RoundsOfApplication,
+  CollegeUsers,
+  UsersBySkill,
+  UsersByCollegeDegreeGraduationYear,
+};
