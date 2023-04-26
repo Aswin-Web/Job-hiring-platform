@@ -21,13 +21,34 @@ const getUserInfo = async (req, res) => {
   return res.status(200).json(userDetails);
 };
 const postEducation = async (req, res) => {
-  const { college, degree, graduated, graduationYear, registerNumber } =
+  const { college, degree, graduated, graduationYear, registerNumber, stream } =
     req.body;
   const user = req.user._id.toString();
 
   let existingUser;
+  let existingCollege;
+  let matchedRegister;
   try {
-    existingUser = await JobSeeker.findById(user);
+    existingCollege = await Education.find({ collegeName: college });
+   
+    matchedRegister = existingCollege.find(
+      (el) => el.registerNumber === registerNumber
+    );
+  
+    if (matchedRegister) {
+      console.log("trueeee regiter number matches");
+      return res
+            .status(400)
+            .json({
+              message:
+                "The user with this register number for this college already exists.!!"})
+    } else {
+      console.log("register number mismatches");
+    }
+
+    
+
+    existingUser = await JobSeeker.findById(user).populate("education");
   } catch (error) {
     console.log(error);
   }
@@ -41,14 +62,12 @@ const postEducation = async (req, res) => {
     degree,
     registerNumber,
     user,
+    stream,
   });
   try {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    await edu.save({ session });
+    await edu.save();
     existingUser.education.push(edu);
-    await existingUser.save({ session });
-    session.commitTransaction();
+    await existingUser.save();
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error });
@@ -77,32 +96,36 @@ const deleteEducation = async (req, res) => {
 };
 
 const postSkill = async (req, res) => {
-  const { skill } = req.body;
+  const { skill, level } = req.body;
   const user = req.user._id.toString();
   let existingUser;
   try {
-    existingUser = await JobSeeker.findById(user);
+    existingUser = await JobSeeker.findById(user).populate("skill");
   } catch (error) {
     console.log(error);
   }
   if (!existingUser) {
     return res.status(400).json({ message: "could not find the user" });
   }
-  const newSkill = new Skill({ skill, user });
+
+  const findSkill = existingUser.skill.find((el) => el.skill === skill);
+
+  if (findSkill) {
+    return res.status(400).json({ message: "This skill is already present" });
+  }
+
+  const newSkill = new Skill({ skill, user, level });
 
   try {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    await newSkill.save({ session });
+    await newSkill.save();
     existingUser.skill.push(newSkill);
-    await existingUser.save({ session });
-    session.commitTransaction();
+    await existingUser.save();
+
+    return res.status(200).json({ message: "skill added", newSkill });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error });
   }
-
-  return res.status(200).json({ message: "skill added", newSkill });
 };
 
 const deleteSkill = async (req, res) => {

@@ -1,7 +1,7 @@
 const User = require("../models/user.models");
 const Education = require("../models/education.model");
 const Application = require("../models/application.models");
-const { application } = require("express");
+const mongoose=require("mongoose")
 
 const getUsers = async (req, res) => {
   const user = req.user._id.toString();
@@ -21,17 +21,10 @@ const getUsers = async (req, res) => {
     college = collegeAdmin.collegeName;
     console.log(collegeAdmin);
 
-    // jobSeekerCollege = await Education.find({ collegeName: college }).populate(
-    //   "user"
-    // );
-    // console.log(jobSeekerCollege, "heloooo");
-
-    // for (let i = 0; i < jobSeekerCollege.length; i++) {
-    //   userID.push(jobSeekerCollege[i].user._id.toString());
-    // }
+   
 
     userApplication = await Education.aggregate([
-      { $match: { collegeName: college } },
+      { $match: { collegeName: college ,collegeVerification:true} },
       {
         $lookup: {
           from: "users",
@@ -52,12 +45,8 @@ const getUsers = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+ 
 
-  //   if (jobSeekerCollege.length === 0) {
-  //     return res
-  //       .status(200)
-  //       .json({ message: "No users registered for this college" });
-  //   }
 
   return res
     .status(200)
@@ -90,15 +79,22 @@ const getUserById = async (req, res) => {
   const id = req.params.id;
   console.log(id, "idddd");
   let applicationDetails;
+  let user;
   try {
-    applicationDetails = await Application.find({ author: id });
+    applicationDetails = await Application.find({ author: id }).populate("author");
+    console.log(applicationDetails)
+
+    
+
     if (!applicationDetails) {
       return res.status(200).json({ message: "No appliation Details found" });
     }
   } catch (error) {
     console.log(error);
   }
-  res.status(200).json(applicationDetails);
+  res
+    .status(200)
+    .json({ applicationDetails: applicationDetails });
 };
 
 module.exports = {
