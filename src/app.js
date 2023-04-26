@@ -21,6 +21,8 @@ const googleAuthRoutes=require('./routes/googleauth.routes')
 const CSVroutes = require('./routes/csv.routes')
 const collegeAdminRouter=require("./routes/college.routes")
 const collegeListRouter=require("./routes/collegeList.routes")
+const platformAdminRoutes=require("./routes/platformAdmin.routes")
+
 
 const cors =require('cors')
 const app = express();
@@ -58,6 +60,10 @@ app.use((req, res, next) => {
 
 ///COLLEGE LIST 
 app.use("/collegelist",collegeListRouter)
+
+// PlatformAdmin
+app.use("/admin",  platformAdminRoutes);
+
 
 // Create an CSV
 app.use('/csv',CSVroutes)
