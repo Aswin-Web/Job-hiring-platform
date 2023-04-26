@@ -9,6 +9,7 @@ const educationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  stream: { type: String, required: true },
   graduated: {
     type: String,
     required: true,

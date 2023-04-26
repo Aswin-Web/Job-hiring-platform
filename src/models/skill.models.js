@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const skillSchema = new mongoose.Schema({
   skill: { type: String, required: true },
+  level:{type:String,required:true},
 
   user: {
     type: mongoose.Types.ObjectId,

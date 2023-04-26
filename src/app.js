@@ -20,6 +20,7 @@ const authRoutes = require("./routes/auth.routes");
 const googleAuthRoutes=require('./routes/googleauth.routes') 
 const CSVroutes = require('./routes/csv.routes')
 const collegeAdminRouter=require("./routes/college.routes")
+const collegeListRouter=require("./routes/collegeList.routes")
 
 const cors =require('cors')
 const app = express();
@@ -55,7 +56,8 @@ app.use((req, res, next) => {
   next()
 });
 
-
+///COLLEGE LIST 
+app.use("/collegelist",collegeListRouter)
 
 // Create an CSV
 app.use('/csv',CSVroutes)
