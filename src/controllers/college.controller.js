@@ -35,6 +35,7 @@ const getUsers = async (req, res) => {
             as: "userDetails",
           },
         },
+        
         {
           $lookup: {
             from: "applications",
@@ -43,7 +44,9 @@ const getUsers = async (req, res) => {
             as: "application",
           },
         },
+        {$sort:{ "application.updatedAt":-1}},
       ]);
+       
       return res
       .status(200)
       .json({ userApplication: userApplication, collegeAdmin: collegeAdmin });
