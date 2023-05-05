@@ -83,8 +83,18 @@ app.use("/collegeadmin",collegeAdminRouter)
 // User Routes
 app.use("/user", userRoutes);
 
-app.use((req, res) => {
+
+app.use("/*",(req, res) => {
+  console.log("Could not match any Route")
   res.status(500).json({ msg: "Something went wrong" });
 });
+
+app.use((req, res) => {
+  console.log("Controller Error")
+  res.status(500).json({ msg: "Something went wrong" });
+});
+
+
+
 // 
 module.exports = app;

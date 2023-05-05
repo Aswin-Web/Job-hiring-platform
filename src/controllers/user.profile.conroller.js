@@ -1,6 +1,8 @@
 const Education = require("../models/education.model");
 const Skill = require("../models/skill.models");
 const JobSeeker = require("../models/user.models");
+const User = require("../models/user.models");
+const Project = require("../models/project.models");
 const mongoose = require("mongoose");
 
 const getUserInfo = async (req, res) => {
@@ -10,7 +12,8 @@ const getUserInfo = async (req, res) => {
   try {
     userDetails = await JobSeeker.findById(id)
       .populate("education")
-      .populate("skill");
+      .populate("skill")
+      .populate("project");
   } catch (error) {
     console.log(error);
   }
@@ -30,23 +33,20 @@ const postEducation = async (req, res) => {
   let matchedRegister;
   try {
     existingCollege = await Education.find({ collegeName: college });
-   
+
     matchedRegister = existingCollege.find(
       (el) => el.registerNumber === registerNumber
     );
-  
+
     if (matchedRegister) {
       console.log("trueeee regiter number matches");
-      return res
-            .status(400)
-            .json({
-              message:
-                "The user with this register number for this college already exists.!!"})
+      return res.status(400).json({
+        message:
+          "The user with this register number for this college already exists.!!",
+      });
     } else {
       console.log("register number mismatches");
     }
-
-    
 
     existingUser = await JobSeeker.findById(user).populate("education");
   } catch (error) {
@@ -94,6 +94,7 @@ const deleteEducation = async (req, res) => {
   }
   return res.status(200).json({ message: "succeffully deleted", edu });
 };
+/////skill post ///////
 
 const postSkill = async (req, res) => {
   const { skill, level } = req.body;
@@ -163,6 +164,83 @@ const updateStatus = async (req, res) => {
 
   return res.status(200).json({ message: "status updated", status });
 };
+////////POSTING PROJECT/////
+const postProject = async (req, res) => {
+  const { projectTitle, projectDescription, projectDomain } = req.body;
+  const user = req.user._id.toString();
+  let existingUser;
+  try {
+    existingUser = await JobSeeker.findById(user).populate("project");
+  } catch (error) {
+    console.log(error);
+  }
+  if (!existingUser) {
+    return res.status(400).json({ message: "could not find the user" });
+  }
+  // const findProject = existingUser.project.find((el) => el.projectTitle === projectTitile);
+
+  // if (findProject) {
+  //   return res.status(400).json({ message: "This skill is already present" });
+  // }
+
+  const newProject = new Project({
+    projectTitle,
+    projectDomain,
+    projectDescription,
+    user,
+  });
+
+  try {
+    await newProject.save();
+    existingUser.project.push(newProject);
+    await existingUser.save();
+
+    return res.status(200).json({ message: "project added", newProject });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error });
+  }
+};
+
+//////DELETE PROJECT/////
+const deleteProject = async (req, res) => {
+  const id = req.params.id;
+
+  let existingProject;
+  try {
+    existingProject = await Project.findByIdAndRemove(id).populate("user");
+    
+    await existingProject.user.project.pull(existingProject);
+    await existingProject.user.save();
+
+    if (!existingProject) {
+      return res.status(500).json({ message: "Unable to delete" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error });
+  }
+  return res
+    .status(200)
+    .json({ message: "Successfully Deleted", existingProject });
+};
+
+/////SPECIFYING PROFILE ROLE//////////
+const updateProfileRole = async(req, res) => {
+  const {profileRole}=req.body
+  const user = req.user._id.toString();
+  let role;
+  try {
+    userRole=await User.findByIdAndUpdate(user,{$set:{profileRole:profileRole}},{new:true})
+    const role=userRole.profileRole
+    res.status(200).json({message:"updated Successfully",role:role})
+    console.log(role)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: error });
+  }
+
+};
 module.exports = {
   getUserInfo,
   postEducation,
@@ -170,4 +248,7 @@ module.exports = {
   postSkill,
   deleteSkill,
   updateStatus,
+  updateProfileRole,
+  postProject,
+  deleteProject,
 };

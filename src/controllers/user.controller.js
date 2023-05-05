@@ -99,7 +99,7 @@ const AddStatusToApplication = async (req, res, next) => {
           }
         );
 
-        return res.status(201).json({ msg: "sucess" });
+        return res.status(201).json({ msg: "success" });
       }
     }
     return res.status(401).json({ msg: "unauthorized" });
