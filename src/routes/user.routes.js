@@ -22,6 +22,7 @@ const {
   postApplication,
   getAllApplications,
   AddStatusToApplication,
+  RemoveStatusFromApplication,
 } = require("../controllers/user.controller");
 
 router
@@ -53,7 +54,13 @@ router.post("/profile/projects/", postProject);
 
 //------------
 
-router.delete("/profile/projects/:id", deleteProject);
+router.delete("/profile/projects/:id", deleteProject);\
+
+router.post("/application/removestatus", RemoveStatusFromApplication);
 
 module.exports = router;
   
+
+
+
+

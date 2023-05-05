@@ -109,8 +109,41 @@ const AddStatusToApplication = async (req, res, next) => {
   }
 };
 
+const RemoveStatusFromApplication=async (req,res,next)=>{
+  try {
+    
+    const {post_id,roundIndex}=req.body
+    const application=await Application.findOne({_id:post_id,author:req.user._id.toString()})
+    // console.log(application)
+    if (application.status.length !==0){
+    //  const newStatus=await application.status.filter((val,index)=>index !== roundIndex)
+    
+    const newStatus =await application.status.filter((val, index) => {
+      
+        if (index !== roundIndex && roundIndex < index) {
+         val.round = index 
+          return val
+        }
+        if (index !== roundIndex && roundIndex >= index) {
+          val.round = index + 1;
+          return val
+        }
+        
+    });
+    application.status=newStatus
+    const modify=application.save()
+    return res.status(200).json({modify:application})
+    }else{
+      return res.status(400).json({msg:'No status available'})}
+    } catch (error) {
+    
+  }
+
+}
+
 module.exports = {
   postApplication,
   getAllApplications,
   AddStatusToApplication,
+  RemoveStatusFromApplication,
 };

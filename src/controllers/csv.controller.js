@@ -19,11 +19,14 @@ const createCSVLoginHistory = async (req, res, next) => {
     console.log("item", data);
     // To Eliminate [object:object] we are explictively writing
     const modify = await data.map((item) => {
-      return {
-        ...item._id,
+      if (item.user_id!==null){
+
+        return {
+          ...item._id,
         createAt: item.createdAt,
         ...item.user_id.toObject(),
       };
+    }
     });
 
     // console.log(modify)
@@ -215,7 +218,7 @@ const CollegeUsers = async (req, res, next) => {
 };
 const UsersBySkill = async (req, res, next) => {
   try {
-    const ws = fs.createWriteStream("CollegeUsers.csv");
+    const ws = fs.createWriteStream("UsersBySkill.csv");
 
     const data = await User.find({ role: "collegeadmin" });
 
@@ -262,23 +265,29 @@ const UsersByCollegeDegreeGraduationYear = async (req, res, next) => {
     // console.log(data);
 
     const ApplicationArray = await data.map((item) => {
+      
       return {
         name: item.name,
         email: item.email,
-        ...item.education,
-        ...item.skill,
-        company: item.college,
-        verification: item.verification,
+        education: item.education[item.education.length - 1]
+          ? item.education[item.education.length - 1].collegeName
+          : "None",
+        graduatedAt: item.education[item.education.length - 1]
+          ? item.education[item.education.length - 1].graduationYear
+          : "None",
+        registerNumber: item.education[item.education.length - 1]
+          ? item.education[item.education.length - 1].registerNumber
+          : "None",
       };
     });
-    console.log(ApplicationArray);
+    console.log(ApplicationArray)
     fastcsv
       .write(ApplicationArray, { headers: true })
       .on("finish", function () {
         console.log("User List");
       })
       .pipe(ws);
-    console.log(data.length);
+    // console.log(data.length);
     return res.send("User List");
   } catch (error) {
     console.log(error);

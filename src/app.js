@@ -82,6 +82,7 @@ app.use("/collegeadmin",collegeAdminRouter)
 
 // User Routes
 app.use("/user", userRoutes);
+// 
 
 
 app.use("/*",(req, res) => {

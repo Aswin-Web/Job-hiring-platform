@@ -1,5 +1,5 @@
-const express=require('express');
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 const {
   createCSVLoginHistory,
   createCSVUsers,
@@ -18,4 +18,4 @@ router.get("/collegeusers", CollegeUsers);
 router.get("/skillUser", UsersBySkill);
 router.get("/userInfo", UsersByCollegeDegreeGraduationYear);
 
-module.exports=router;
+module.exports = router;

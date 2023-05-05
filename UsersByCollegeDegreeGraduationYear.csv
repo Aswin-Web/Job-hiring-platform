@@ -1,18 +1,16 @@
-0,1,2,3,name,email,company,verification
-"{ _id: new ObjectId(""643548d9125b064466ad5657""), skill: 'NodeJS' }","{ _id: new ObjectId(""643548df125b064466ad565d""), skill: 'ReactJS' }","{ _id: new ObjectId(""643548e5125b064466ad5662""), skill: 'Javascript' }","{ _id: new ObjectId(""643548ee125b064466ad5667""), skill: 'HTML' }",Ashvin S,ashvinachu0972@gmail.com,,
-,,,,Ashvin S,ashece9@gmail.com,,
-"{ _id: new ObjectId(""6436c55fd4a73af97da611ff""), skill: 'Python' }",,,,Sreeram Kishore Chavali,cskishore@gmail.com,,
-,,,,Ashrita Chavali,chavaliashrita@gmail.com,,
-,,,,Srini Pala,palasrao@gmail.com,,
-"{ _id: new ObjectId(""64365e21efe896b72b454c23""), skill: 'C++' }","{ _id: new ObjectId(""64365e39efe896b72b454c2c""), skill: 'Java' }","{ _id: new ObjectId(""64365e41efe896b72b454c31""), skill: 'Javascript' }",,I-BACUS TECH,ibacustech@gmail.com,,
-,,,,Test Bench,testbench88@gmail.com,,
-,,,,Ashvin S,ashvinachu09117@gmail.com,,
-"{
-  _id: new ObjectId(""643d53c0b9aad6a8c7da6435""),
-  collegeName: 'Coimbatore Institute of Technology (CIT), Coimbatore',
-  graduated: 'Yes',
-  graduationYear: '2022',
-  registerNumber: '71376545646'
-}",,,,Ashvin S,ashvinachu09712s@gmail.com,,
-,,,,joel raj,joelraj224@gmail.com,,
-"{ _id: new ObjectId(""6440ba94eceb57d30a82c6ca""), skill: 'Java' }",,,,Ashvin S,ashvinachu097@gmail.com,,
+name,email,education,graduatedAt,registerNumber
+Ashvin S,ashvinachu0907@gmail.com,None,None,None
+I-BACUS TECH,ibacustech@gmail.com,None,None,None
+Dhanesh PK,dpkcbe15@gmail.com,None,None,None
+Sreeram Kishore Chavali,cskishore@gmail.com,Amrita School of Business ,2020,14676511
+Srinivas Noolu,srinivasnoolu@gmail.com,None,None,None
+athav js,athavan.ibacustech@gmail.com,None,None,None
+dileep kumar,dileepkumar.ibacustech@gmail.com,None,None,None
+vivek N,vivek.ibacustech@gmail.com,Hindusthan College of Arts and Science,2021,127
+Ashvin S,ashvinachu097@gmail.com,Dr. SNS Rajalakshmi College of Arts and Science,2009,1111
+Amal Sivadas,amalsivadas08@gmail.com,Sri Ranganathar Institute of Engineering and Technology,2024,713919106002
+joel raj,joelraj224@gmail.com,Dr. SNS Rajalakshmi College of Arts and Science,2004,71381939993
+Swetha C,swetha.ibacustech@gmail.com,PSGR Krishnammal College for Women,2023,20BCB053
+Developer Console,developeribacus@gmail.com,Sri Ranganathar Institute of Engineering and Technology,2023,71376545646
+Athavan Js,athavanjs12@gmail.com,None,None,None
+Kishor K,kishor.ibacustech@gmail.com,AJK College of Arts and Science ,2032,1913136
