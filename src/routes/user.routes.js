@@ -19,6 +19,7 @@ const {
   postApplication,
   getAllApplications,
   AddStatusToApplication,
+  RemoveStatusFromApplication,
 } = require("../controllers/user.controller");
 
 router
@@ -43,4 +44,6 @@ router.delete("/profile/skill/:id", deleteSkill);
 // -------------------
 router.put("/profile/status/", updateStatus);
 
-module.exports = router;
+router.post("/application/removestatus", RemoveStatusFromApplication);
+
+http: module.exports = router;

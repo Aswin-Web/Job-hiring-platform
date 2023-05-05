@@ -1,36 +1,26 @@
-0,id,name,email,role,skill
-"{
-  _id: new ObjectId(""643d53c0b9aad6a8c7da6435""),
-  collegeName: 'Coimbatore Institute of Technology (CIT), Coimbatore',
-  degree: 'BE/B.Tech',
-  graduationYear: '2022',
-  registerNumber: '71376545646'
-}",643d52b4b9aad6a8c7da6421,Ashvin S,ashvinachu097@gmail.com,user,
-,643d4ea3b6b3b04a9549617b,Ashvin S,ashvinachu09117@gmail.com,user,
-,643d4e76b6b3b04a95496152,Amal Das,amaldas0812@gmail.com,none,
-,642bb35ced44a8bacbbeb780,Test Bench,testbench88@gmail.com,user,
-"{
-  _id: new ObjectId(""64365e74efe896b72b454c38""),
-  collegeName: 'Kumaraguru College of Technology, Coimbatore',
-  degree: 'MBA',
-  graduationYear: '2022',
-  registerNumber: '701230161101'
-}",64290372eaa1f1fe4381cb8a,I-BACUS TECH,ibacustech@gmail.com,user,"C++,Java,Javascript"
-,6428a40da44a1766ee1a5a1e,Srini Pala,palasrao@gmail.com,user,
-,64285731ad65bcd238883884,Ashrita Chavali,chavaliashrita@gmail.com,user,
-"{
-  _id: new ObjectId(""6436c57ed4a73af97da61205""),
-  collegeName: 'Coimbatore Institute of Technology (CIT), Coimbatore',
-  degree: 'BE/B.Tech',
-  graduationYear: '2020',
-  registerNumber: 'ABCD1'
-}",6426eb665e31abc59b5a2c42,Sreeram Kishore Chavali,cskishore@gmail.com,user,Python
-,6426ea855e31abc59b5a2c3b,Ashvin S,ashece9@gmail.com,user,
-,64268cf521076e0a0e76d660,dev s,ds1611148@gmail.com,collegeadmin,
-"{
-  _id: new ObjectId(""643548b7125b064466ad564c""),
-  collegeName: 'Hindusthan College of Engineering and Technology (HCET), Coimbatore',
-  degree: 'BE/B.Tech',
-  graduationYear: '2022',
-  registerNumber: '71376545646'
-}",64268b776e76b0adf799c0dc,Ashvin S,ashvinachu0972@gmail.com,user,"NodeJS,ReactJS,Javascript,HTML"
+id,name,email,role,skill
+6453527e9f1676c69dbfb1f2,kishor kishor,kishoramulraj@gmail.com,collegeadmin,
+645350559f1676c69dbfb1c1,Kishor K,kishor.ibacustech@gmail.com,user,ERP developement
+6452165fc1716d492f3c382d,Athavan Js,athavanjs12@gmail.com,user,
+6451f80ec5331aafd22523da,Developer Console,developeribacus@gmail.com,user,"NodeJS,Javascript,SQL,Web developement"
+645131a66d2b2b4c89c6cfa8,Swetha C,swetha.ibacustech@gmail.com,user,"Power BI,Tableau"
+645100f177508e2c5e9bf1a6,joel raj,joelraj224@gmail.com,user,
+6451007177508e2c5e9bf171,Amal Das,amaldas0812@gmail.com,collegeadmin,
+6450e9d3fae7b8adf834efdc,Amal Sivadas,amalsivadas08@gmail.com,user,
+6450c8b61b5b747cb9df7047,Deva Deva,devadeva280402@gmail.com,collegeadmin,
+6450c49d1b5b747cb9df6ff9,Ashvin S,ashvinachu097@gmail.com,user,
+6450c34e1b5b747cb9df6fb0,dev s,ds1611148@gmail.com,collegeadmin,
+6450c2fd1b5b747cb9df6f90,vivek N,vivek.ibacustech@gmail.com,user,Photoshop
+6450c0451b5b747cb9df6f82,dileep kumar,dileepkumar.ibacustech@gmail.com,user,
+6450bb1e1b5b747cb9df6f5c,Amal Das,rhaegal6666@gmail.com,collegeadmin,
+6450ab8f9b5f43625f35908f,Test Bench,testbench88@gmail.com,collegeadmin,
+6450aabe9b5f43625f35904a,Amal Das,valardohaen@gmail.com,collegeadmin,
+6450a9629b5f43625f359008,Shady Cr,crshady5@gmail.com,collegeadmin,
+6450a7939b5f43625f358fbc,athav js,athavan.ibacustech@gmail.com,user,Java
+644da6037710caf5df3a3a0d,professor kakani,professorkakani@gmail.com,collegeadmin,
+644d9673ecbae589b32c24a4,Srinivas Noolu,srinivasnoolu@gmail.com,user,
+644b613235e03e264e617e6b,Data Analyst101,dataanalysts101@gmail.com,collegeadmin,
+644a998660f46c0cdf921c1c,Sreeram Kishore Chavali,cskishore@gmail.com,user,"Python,Javascript"
+644a2e165148e6361daa0992,Dhanesh PK,dpkcbe15@gmail.com,user,
+644a2db95148e6361daa097f,I-BACUS TECH,ibacustech@gmail.com,user,
+644a2a6e5148e6361daa0957,Ashvin S,ashvinachu0907@gmail.com,user,
