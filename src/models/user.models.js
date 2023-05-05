@@ -6,6 +6,9 @@ const Schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    profileRole:{
+      type:String
+    },
     email: {
       type: String,
       unique: true,
@@ -32,6 +35,7 @@ const Schema = new mongoose.Schema(
     contact: { type: String },
 
     education: [{ type: mongoose.Types.ObjectId, ref: "Education" }],
+    project: [{ type: mongoose.Types.ObjectId, ref: "Project" }],
     skill: [
       {
         type: mongoose.Types.ObjectId,

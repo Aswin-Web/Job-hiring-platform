@@ -12,6 +12,9 @@ const {
   postSkill,
   deleteSkill,
   updateStatus,
+  updateProfileRole,
+  postProject,
+  deleteProject
 } = require("../controllers/user.profile.conroller");
 
 
@@ -44,6 +47,20 @@ router.delete("/profile/skill/:id", deleteSkill);
 // -------------------
 router.put("/profile/status/", updateStatus);
 
+//--------
+router.put("/profile/profilerole/", updateProfileRole);
+//------------
+router.post("/profile/projects/", postProject);
+
+//------------
+
+router.delete("/profile/projects/:id", deleteProject);\
+
 router.post("/application/removestatus", RemoveStatusFromApplication);
 
-http: module.exports = router;
+module.exports = router;
+  
+
+
+
+
