@@ -1,4 +1,6 @@
 const Application = require("../models/application.models");
+const ejs = require("ejs");
+const sendEmail = require("../utils/nodemailer.email");
 const postApplication = async (req, res, next) => {
   try {
     const {
@@ -70,7 +72,6 @@ const AddStatusToApplication = async (req, res, next) => {
         interviewType &&
         status &&
         date &&
-        notes &&
         postID &&
         author &&
         interviewerName &&
@@ -99,7 +100,51 @@ const AddStatusToApplication = async (req, res, next) => {
           }
         );
 
-        return res.status(201).json({ msg: "success" });
+
+        if (status === "Selected") {
+          const message = `<div>
+    <div>
+      <h3>Congratulations ${req.user.name}...😎🤩</h3>
+    </div>
+    <div>
+      <p>
+        &nbsp; Wishing you infinite success with your new Job...! We know you will do
+        justice to your skills and talent and turn your business into a
+        phenomenal success! May you always get what you wish for and keep doing
+        good👍.
+      </p>
+      <br/>
+      <br/>
+      <h3>Thanks</h3>
+      <p>Team CareerSheets</p>
+    </div>
+  </div>`;
+          sendEmail(req.user.email, "Congratulations", message);
+        }
+        if (status === "Rejected") {
+          const message = `<div>
+    <div>
+      <h3>Hello ${req.user.name}...😎</h3>
+    </div>
+    <div>
+      <p>
+        &nbsp; &nbsp;&nbsp;It is impossible to live without failing at something unless you live so cautiously that
+         you might as well not have lived at all, in which case you have failed by default.
+      </p>
+       <br/>
+      <br/>
+      <p> &nbsp;&nbsp;&nbsp;Your hardwork will not make you fail, Improve the things where you find you are weak. </p>
+      <br/>
+      <br/>
+      <h3>Thanks</h3>
+      <p>Team CareerSheets</p>
+    </div>
+  </div>`;
+          sendEmail(req.user.email, "CareerSheets", message);
+        }
+
+        return res.status(201).json({ msg: "sucess" });
+
       }
     }
     return res.status(401).json({ msg: "unauthorized" });
@@ -109,37 +154,35 @@ const AddStatusToApplication = async (req, res, next) => {
   }
 };
 
-const RemoveStatusFromApplication=async (req,res,next)=>{
+const RemoveStatusFromApplication = async (req, res, next) => {
   try {
-    
-    const {post_id,roundIndex}=req.body
-    const application=await Application.findOne({_id:post_id,author:req.user._id.toString()})
+    const { post_id, roundIndex } = req.body;
+    const application = await Application.findOne({
+      _id: post_id,
+      author: req.user._id.toString(),
+    });
     // console.log(application)
-    if (application.status.length !==0){
-    //  const newStatus=await application.status.filter((val,index)=>index !== roundIndex)
-    
-    const newStatus =await application.status.filter((val, index) => {
-      
+    if (application.status.length !== 0) {
+      //  const newStatus=await application.status.filter((val,index)=>index !== roundIndex)
+
+      const newStatus = await application.status.filter((val, index) => {
         if (index !== roundIndex && roundIndex < index) {
-         val.round = index 
-          return val
+          val.round = index;
+          return val;
         }
         if (index !== roundIndex && roundIndex >= index) {
           val.round = index + 1;
-          return val
+          return val;
         }
-        
-    });
-    application.status=newStatus
-    const modify=application.save()
-    return res.status(200).json({modify:application})
-    }else{
-      return res.status(400).json({msg:'No status available'})}
-    } catch (error) {
-    
-  }
-
-}
+      });
+      application.status = newStatus;
+      const modify = application.save();
+      return res.status(200).json({ modify: application });
+    } else {
+      return res.status(400).json({ msg: "No status available" });
+    }
+  } catch (error) {}
+};
 
 module.exports = {
   postApplication,

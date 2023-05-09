@@ -59,8 +59,4 @@ router.delete("/profile/projects/:id", deleteProject);
 router.post("/application/removestatus", RemoveStatusFromApplication);
 
 module.exports = router;
-  
-
-
-
 

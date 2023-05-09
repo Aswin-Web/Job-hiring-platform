@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const session=require('express-session')
 var morgan = require("morgan");
+const ejs=require('ejs')
 
 // Authorisation Header Check
 const {authenticateUser} =require('./utils/authorisation.header.check')
@@ -38,6 +39,7 @@ app.use(cookieParser());
 
 app.use(morgan("combined"));
 
+// app.set("view engine", "ejs");
 
 app.use(
   cors({

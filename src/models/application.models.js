@@ -32,7 +32,7 @@ const Schema = new mongoose.Schema(
         interviewType: String,
         status: String,
         date: String,
-        notes: String,
+        notes: {type:String,default:'None'},
         interviewerName:String,
         interviewerContact:String,
         interviewMode: String, 

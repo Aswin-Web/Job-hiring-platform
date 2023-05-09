@@ -10,7 +10,7 @@ const email = (to, subject, html) => {
       },
     });
     const mailOption = {
-      from: `Akidev ${process.env.NODEMAILER_USERNAME}`,
+      from: `CareerSheets ${process.env.NODEMAILER_USERNAME}`,
       to: to,
       subject: subject,
       html: html,
