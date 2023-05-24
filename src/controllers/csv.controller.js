@@ -19,14 +19,14 @@ const createCSVLoginHistory = async (req, res, next) => {
     console.log("item", data);
     // To Eliminate [object:object] we are explictively writing
     const modify = await data.map((item) => {
-      if (item.user_id!==null){
-
+      if (item.user_id !== null) {
         return {
           ...item._id,
-        createAt: item.createdAt,
-        ...item.user_id.toObject(),
-      };
-    }
+          createAt: new Date(item.createdAt).toLocaleDateString().toString(),
+
+          ...item.user_id.toObject(),
+        };
+      }
     });
 
     // console.log(modify)
@@ -110,6 +110,7 @@ const createApplicationByUser = async (req, res, next) => {
     ]);
     const ApplicantArray = await data.map((item) => {
       return {
+        _id: item.user_info[0]._id,
         email: item.user_info[0].email,
         name: item.user_info[0].name,
         TotalApplication: item.application,
@@ -145,38 +146,64 @@ const RoundsOfApplication = async (req, res, next) => {
           as: "user_info",
         },
       },
+      { $sort: { status: -1 } },
       {
         $project: {
           company: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          "user_info._id": 1,
           "user_info.name": 1,
           "user_info.email": 1,
           applicationStatus: { $slice: ["$status", -1] },
+          status: 1,
         },
       },
     ]);
+    // const num = data[0].status.length;
+
+    // for (let index = 0; index < num; index++) {
+    //   let round_number = `Round_${index}`;
+
+    // }
 
     const ApplicationArray = await data.map((item) => {
+      const num = item.status.length;
+      let roundInfo = { };
+      const roundDates = item.status.map((x, index) => {
+        // console.log(x.date)
+        let news=`{"Round_${Object.values(x.round)}" : "${new Date(x.date).toLocaleDateString()}"}`;
+        // console.log(news)
+
+        roundInfo={...roundInfo,...JSON.parse(news)}
+      });
+      // console.log(roundInfo)
+
       if (
         item.applicationStatus !== 0 &&
         item.applicationStatus[0] !== undefined
       ) {
         return {
+          _id: item.user_info[0]._id,
           name: item.user_info[0].name,
           email: item.user_info[0].email,
           company: item.company,
+          createdAt: new Date(item.createdAt).toLocaleDateString(),
+          updatedAt: new Date(item.updatedAt).toLocaleDateString(),
+          ...roundInfo,
           round: item.applicationStatus[0].round,
           status: item.applicationStatus[0].status,
         };
       }
     });
-    console.log(ApplicationArray);
+     console.log(ApplicationArray);
     fastcsv
       .write(ApplicationArray, { headers: true })
       .on("finish", function () {
         console.log("User List");
       })
       .pipe(ws);
-    console.log(data.length);
+    // console.log(data.length);
     return res.send("User List");
   } catch (error) {
     console.log(error);
@@ -187,20 +214,17 @@ const CollegeUsers = async (req, res, next) => {
   try {
     const ws = fs.createWriteStream("CollegeUsers.csv");
 
-    const data = await User.find({role:'collegeadmin'})
+    const data = await User.find({ role: "collegeadmin" });
 
-    console.log(data)
-      
+    console.log(data);
 
     const ApplicationArray = await data.map((item) => {
-      
-        return {
-          name: item.name,
-          email: item.email,
-          company: item.college,
-          verification: item.verification,
-        };
-      
+      return {
+        name: item.name,
+        email: item.email,
+        company: item.college,
+        verification: item.verification,
+      };
     });
     console.log(ApplicationArray);
     fastcsv
@@ -216,6 +240,7 @@ const CollegeUsers = async (req, res, next) => {
     return next();
   }
 };
+// No needed
 const UsersBySkill = async (req, res, next) => {
   try {
     const ws = fs.createWriteStream("UsersBySkill.csv");
@@ -254,19 +279,27 @@ const UsersByCollegeDegreeGraduationYear = async (req, res, next) => {
     const data = await User.find({ role: "user" })
       .populate({
         path: "education",
-        select: "collegeName graduated graduationYear registerNumber",
+        select:
+          "collegeName graduated graduationYear registerNumber degree stream",
       })
       .populate({
         path: "skill",
         select: "skill",
       })
-      .select("education skill name email");
+      .select("_id education skill name email");
 
-    // console.log(data);
+    console.log(data[3]);
 
     const ApplicationArray = await data.map((item) => {
-      
+      let skills = "";
+      if (item.skill !== 0) {
+        item.skill.map((skill) => {
+          skills = skills + " " + skill.skill;
+        });
+      }
+
       return {
+        _id: item._id,
         name: item.name,
         email: item.email,
         education: item.education[item.education.length - 1]
@@ -278,9 +311,16 @@ const UsersByCollegeDegreeGraduationYear = async (req, res, next) => {
         registerNumber: item.education[item.education.length - 1]
           ? item.education[item.education.length - 1].registerNumber
           : "None",
+        stream: item.education[item.education.length - 1]
+          ? item.education[item.education.length - 1].stream
+          : "None",
+        degree: item.education[item.education.length - 1]
+          ? item.education[item.education.length - 1].degree
+          : "None",
+        skill: item.skill[item.skill.length - 1] ? skills : "None",
       };
     });
-    console.log(ApplicationArray)
+    console.log(ApplicationArray);
     fastcsv
       .write(ApplicationArray, { headers: true })
       .on("finish", function () {

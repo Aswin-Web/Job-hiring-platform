@@ -1,16 +1,21 @@
-name,email,education,graduatedAt,registerNumber
-Ashvin S,ashvinachu0907@gmail.com,None,None,None
-I-BACUS TECH,ibacustech@gmail.com,None,None,None
-Dhanesh PK,dpkcbe15@gmail.com,None,None,None
-Sreeram Kishore Chavali,cskishore@gmail.com,Amrita School of Business ,2020,14676511
-Srinivas Noolu,srinivasnoolu@gmail.com,None,None,None
-athav js,athavan.ibacustech@gmail.com,None,None,None
-dileep kumar,dileepkumar.ibacustech@gmail.com,None,None,None
-vivek N,vivek.ibacustech@gmail.com,Hindusthan College of Arts and Science,2021,127
-Ashvin S,ashvinachu097@gmail.com,Dr. SNS Rajalakshmi College of Arts and Science,2009,1111
-Amal Sivadas,amalsivadas08@gmail.com,Sri Ranganathar Institute of Engineering and Technology,2024,713919106002
-joel raj,joelraj224@gmail.com,Dr. SNS Rajalakshmi College of Arts and Science,2004,71381939993
-Swetha C,swetha.ibacustech@gmail.com,PSGR Krishnammal College for Women,2023,20BCB053
-Developer Console,developeribacus@gmail.com,Sri Ranganathar Institute of Engineering and Technology,2023,71376545646
-Athavan Js,athavanjs12@gmail.com,None,None,None
-Kishor K,kishor.ibacustech@gmail.com,AJK College of Arts and Science ,2032,1913136
+_id,name,email,education,graduatedAt,registerNumber,stream,degree,skill
+644a2a6e5148e6361daa0957,Ashvin S,ashvinachu0907@gmail.com,None,None,None,None,None,None
+644a2db95148e6361daa097f,I-BACUS TECH,ibacustech@gmail.com,None,None,None,None,None,None
+644a2e165148e6361daa0992,Dhanesh PK,dpkcbe15@gmail.com,None,None,None,None,None,None
+644a998660f46c0cdf921c1c,Sreeram Kishore Chavali,cskishore@gmail.com,Amrita School of Business ,2020,14676511,General Management,MBA, Python Javascript C++
+644d9673ecbae589b32c24a4,Srinivas Noolu,srinivasnoolu@gmail.com,None,None,None,None,None,None
+6450a7939b5f43625f358fbc,athav js,athavan.ibacustech@gmail.com,None,None,None,None,None, Java
+6450c0451b5b747cb9df6f82,dileep kumar,dileepkumar.ibacustech@gmail.com,None,None,None,None,None,None
+6450c2fd1b5b747cb9df6f90,vivek N,vivek.ibacustech@gmail.com,Hindusthan College of Arts and Science,2021,127,Information Technology ,BSC, Photoshop
+6450c49d1b5b747cb9df6ff9,Ashvin S,ashvinachu097@gmail.com,Dr. SNS Rajalakshmi College of Arts and Science,2009,1111,BE,BE/B.Tech,None
+6450e9d3fae7b8adf834efdc,Amal Sivadas,amalsivadas08@gmail.com,Sri Ranganathar Institute of Engineering and Technology,2024,713919106002,Electronics and communication engineering,BE/B.Tech,None
+645100f177508e2c5e9bf1a6,joel raj,joelraj224@gmail.com,Dr. SNS Rajalakshmi College of Arts and Science,2004,71381939993,BE,BE/B.Tech,None
+645131a66d2b2b4c89c6cfa8,Swetha C,swetha.ibacustech@gmail.com,PSGR Krishnammal College for Women,2023,20BCB053,Business Analytics,B.com, Power BI Tableau
+6451f80ec5331aafd22523da,Developer Console,developeribacus@gmail.com,Sri Ranganathar Institute of Engineering and Technology,2023,71376545646,Electronics and Communication ,BE/B.Tech, NodeJS Javascript SQL Web developement
+6452165fc1716d492f3c382d,Athavan Js,athavanjs12@gmail.com,None,None,None,None,None,None
+645350559f1676c69dbfb1c1,Kishor K,kishor.ibacustech@gmail.com,AJK College of Arts and Science ,2032,1913136,ECE,BE/B.Tech, ERP developement
+6454f3836b561962ed8fd7bb,admin foodify,foodify3@gmail.com,None,None,None,None,None,None
+64587bd0548f4ad4d150c276,SWETHA C PSGRKCW,20bcb053@psgrkcw.ac.in,None,None,None,None,None,None
+6459dfcfaf911c9fd3ad31b7,Balaji Bheemarajan,jithubheeman52@gmail.com,None,None,None,None,None,None
+6464e3f048c7bcc6e1632963,Adam Buxbaum,abuxbaum@gmail.com,None,None,None,None,None,None
+6466d61f65ce073ffdbbb8a6,Alex Scales,ascales@scu.edu,None,None,None,None,None,None

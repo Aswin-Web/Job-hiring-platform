@@ -1,4 +1,10 @@
 id,name,email,role,skill
+6466d61f65ce073ffdbbb8a6,Alex Scales,ascales@scu.edu,user,
+6464e3f048c7bcc6e1632963,Adam Buxbaum,abuxbaum@gmail.com,user,
+645a446bbd9978dd9af5dced,Amal Das,das4814@gmail.com,none,
+6459dfcfaf911c9fd3ad31b7,Balaji Bheemarajan,jithubheeman52@gmail.com,user,
+64587bd0548f4ad4d150c276,SWETHA C PSGRKCW,20bcb053@psgrkcw.ac.in,user,
+6454f3836b561962ed8fd7bb,admin foodify,foodify3@gmail.com,user,
 6453527e9f1676c69dbfb1f2,kishor kishor,kishoramulraj@gmail.com,collegeadmin,
 645350559f1676c69dbfb1c1,Kishor K,kishor.ibacustech@gmail.com,user,ERP developement
 6452165fc1716d492f3c382d,Athavan Js,athavanjs12@gmail.com,user,
@@ -20,7 +26,7 @@ id,name,email,role,skill
 644da6037710caf5df3a3a0d,professor kakani,professorkakani@gmail.com,collegeadmin,
 644d9673ecbae589b32c24a4,Srinivas Noolu,srinivasnoolu@gmail.com,user,
 644b613235e03e264e617e6b,Data Analyst101,dataanalysts101@gmail.com,collegeadmin,
-644a998660f46c0cdf921c1c,Sreeram Kishore Chavali,cskishore@gmail.com,user,"Python,Javascript"
+644a998660f46c0cdf921c1c,Sreeram Kishore Chavali,cskishore@gmail.com,user,"Python,Javascript,C++"
 644a2e165148e6361daa0992,Dhanesh PK,dpkcbe15@gmail.com,user,
 644a2db95148e6361daa097f,I-BACUS TECH,ibacustech@gmail.com,user,
 644a2a6e5148e6361daa0957,Ashvin S,ashvinachu0907@gmail.com,user,
